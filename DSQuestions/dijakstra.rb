@@ -12,6 +12,15 @@ class Edge
 
 end
 
+class Dpair
+
+    attr_accessor :vtx,:psf,:csf
+    def initialize(vtx,psf,csf)
+        @vtx = vtx
+        @psf =psf
+        @csf = csf
+    end
+end
 
 graph = [];
 
@@ -35,3 +44,7 @@ def display(graph)
 end
 
 display(graph)
+
+def dijakstra(src)
+    
+end
