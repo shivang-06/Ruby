@@ -20,6 +20,10 @@ class Dpair
         @psf =psf
         @csf = csf
     end
+
+    def to_s
+        return "#{@vtx.to_s} - #{@psf.to_s} - #{csf.to_s}"
+    end
 end
 
 graph = [];
@@ -33,6 +37,29 @@ graph[4] = [Edge.new(3,2), Edge.new(6, 5), Edge.new(5,3)]
 graph[5] = [Edge.new(4, 3), Edge.new(6, 3)]
 graph[6] = [Edge.new(5,3), Edge.new(4, 5)]
 
+
+def dijakstra(graph,src)
+    pq = PriorityQueue.new()
+    pq.push(Dpair.new(src , src.to_s,0))
+    hash = {}
+
+    while pq.size()>0
+        rem =pq.pop()
+        if (hash.key?(rem.vtx))
+            next
+        end
+
+        hash[rem.vtx] = true
+        print rem
+        for ei in (0..graph[rem.vtx].length-1) do
+            edge = graph[rem.vtx][ei]
+            if (hash.key?(edge.vtx)==false)
+                pq.push(Dpair.new(edge.vtx,rem.psf+edge.vtx.to_s,rem.csf+edge.wt), -(rem.csf+edge.wt))
+            end
+        end
+    end
+end
+
 def display(graph)
     for vtx in (0..graph.length-1) do
         print vtx.to_s+"   ->  "
@@ -43,8 +70,5 @@ def display(graph)
     end
 end
 
-display(graph)
+# display(graph)
 
-def dijakstra(src)
-    
-end
