@@ -1,3 +1,6 @@
+require 'algorithms'
+include Containers
+
 class Edge
   attr_accessor :nvtx, :wt
 
@@ -12,20 +15,6 @@ class Edge
 
 end
 
-class Dpair
-
-    attr_accessor :vtx,:psf,:csf
-    def initialize(vtx,psf,csf)
-        @vtx = vtx
-        @psf =psf
-        @csf = csf
-    end
-
-    def to_s
-        return "#{@vtx.to_s} - #{@psf.to_s} - #{csf.to_s}"
-    end
-end
-
 graph = [];
 
 #LHS represent vertex, RHS represent cost to reach the neighbor and neighbors.
@@ -38,9 +27,24 @@ graph[5] = [Edge.new(4, 3), Edge.new(6, 3)]
 graph[6] = [Edge.new(5,3), Edge.new(4, 5)]
 
 
+class Dpair
+    attr_accessor :vtx,:psf,:csf
+
+    def initialize(vtx,psf,csf)
+        @vtx = vtx
+        @psf =psf
+        @csf = csf
+    end
+
+    def to_s
+        return "#{@vtx.to_s} - #{@psf.to_s} - #{csf.to_s}"
+    end
+end
+
 def dijakstra(graph,src)
+    
     pq = PriorityQueue.new()
-    pq.push(Dpair.new(src , src.to_s,0))
+    pq.push(Dpair.new(src , src.to_s,0),0)
     hash = {}
 
     while pq.size()>0
@@ -50,15 +54,20 @@ def dijakstra(graph,src)
         end
 
         hash[rem.vtx] = true
-        print rem
+        puts rem
+
         for ei in (0..graph[rem.vtx].length-1) do
             edge = graph[rem.vtx][ei]
-            if (hash.key?(edge.vtx)==false)
-                pq.push(Dpair.new(edge.vtx,rem.psf+edge.vtx.to_s,rem.csf+edge.wt), -(rem.csf+edge.wt))
+            if (hash.key?(edge.nvtx)==false)
+                pq.push(Dpair.new(edge.nvtx,rem.psf+edge.nvtx.to_s,rem.csf+edge.wt), -(rem.csf+edge.wt))
             end
         end
     end
 end
+
+
+dijakstra(graph,0);
+
 
 def display(graph)
     for vtx in (0..graph.length-1) do
