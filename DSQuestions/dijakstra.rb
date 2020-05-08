@@ -33,4 +33,5 @@ def display(graph)
         puts
     end
 end
+
 display(graph)
