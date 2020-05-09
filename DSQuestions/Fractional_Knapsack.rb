@@ -37,6 +37,7 @@ ratio_arr = items.sort()
 vib = 0
 rc =7
 idx =0
+
 while(idx<items.length)
     if(rc>items[idx].wt)
         vib = vib+items[idx].val
