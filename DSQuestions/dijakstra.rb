@@ -28,8 +28,8 @@ graph[6] = [Edge.new(5,3), Edge.new(4, 5)]
 
 
 class Dpair
+    
     attr_accessor :vtx,:psf,:csf
-
     def initialize(vtx,psf,csf)
         @vtx = vtx
         @psf =psf
